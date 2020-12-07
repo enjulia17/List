@@ -218,12 +218,7 @@ template<class T>
 inline void TList<T>::InsLast(T d)
 {
 	TListElem<T>* tmp = new TListElem<T>(d);
-	if ((end == root) && (root != 0))
-		root->SetNext(tmp);
-	if (end != 0)
-		end->SetNext(tmp);
 	tmp->SetPrev(end);
-	tmp->SetNext(0);
 	end = tmp;
 	count++;
 }
