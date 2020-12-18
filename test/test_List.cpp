@@ -25,6 +25,14 @@ TEST(List, can_create_list)
 	ASSERT_NO_THROW(TList<int>());
 }
 
+TEST(List, can_copy_list)
+{
+	TList<int> a;
+	a.InsLast(10);
+	TList<int> b(a);
+	EXPECT_EQ(10, b.GetLast()->GetData());
+}
+
 TEST(List, can_insert_first_element)
 {
 	TList<int> f;
@@ -71,3 +79,36 @@ TEST(List, cannot_delete_element_from_empty_list)
 	ASSERT_ANY_THROW(e.DelLast());
 }
 
+TEST(Extra, iterator)
+{
+	TList<int> a;
+	a.InsLast(1);
+	a.InsLast(2);
+	a.InsLast(3);
+	TListIterator<int> i(a, a.GetFirst());
+	i++;
+	EXPECT_EQ(2, i.GetData());
+}
+
+TEST(Extra, reverse)
+{
+	TList<int> a;
+	a.InsLast(1);
+	a.InsLast(2);
+	a.InsLast(4);
+	a.reverse();
+	EXPECT_EQ(4, a.GetFirst()->GetData());
+}
+
+TEST(Extra, cleanse)
+{
+	TList<int> a;
+	a.InsLast(1);
+	a.InsLast(3);
+	a.InsLast(4);
+	a.InsLast(2);
+	a.InsLast(4);
+	a.cleanse();
+	EXPECT_EQ(4, a.GetCount());
+	EXPECT_EQ(2, a.GetLast()->GetData());
+}
